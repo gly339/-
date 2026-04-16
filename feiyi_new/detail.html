@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>陕西剪纸 - 非遗作品详情 - 非遗新生</title>
+    <link rel="stylesheet" href="styles/detail.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- 固定导航栏 -->
+    <nav class="navbar fixed-top">
+        <div class="nav-container">
+            <!-- 返回上一页按钮 -->
+            <div class="nav-left">
+                <button class="back-btn" onclick="history.back()">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+            </div>
+
+            <!-- 左侧LOGO -->
+            <div class="logo-section">
+                <div class="logo-wrapper">
+                    <div class="logo">
+                        <svg width="60" height="60" viewBox="0 0 60 60">
+                            <circle cx="30" cy="30" r="28" fill="#C41E3A" stroke="#D4AF37" stroke-width="2"/>
+                            <path d="M20 20 Q30 15 40 20 T50 25 L45 35 Q30 45 15 35 Z" fill="white" stroke="#1A1A1A" stroke-width="1"/>
+                            <path d="M15 25 Q30 30 45 25" fill="none" stroke="#D4AF37" stroke-width="1"/>
+                        </svg>
+                    </div>
+                    <span class="logo-text">非遗新生</span>
+                </div>
+            </div>
+
+            <!-- 中间导航菜单 -->
+            <div class="menu-section">
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="nav-link">首页</a></li>
+                    <li><a href="exhibition.html" class="nav-link active">非遗展馆</a></li>
+                    <li><a href="workshop.html" class="nav-link">虚拟工坊</a></li>
+                    <li><a href="quiz.html" class="nav-link">答题闯关</a></li>
+                    <li><a href="map.html" class="nav-link">地域地图</a></li>
+                </ul>
+            </div>
+
+            <!-- 右侧功能 -->
+            <div class="right-section">
+                <div class="nav-icons">
+                    <i class="fas fa-heart nav-icon" id="collectIcon"></i>
+                    <i class="fas fa-share-alt nav-icon" id="shareIcon"></i>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 展品大图轮播区域 -->
+    <section class="hero-carousel">
+        <div class="carousel-container">
+            <div class="carousel-track">
+                <div class="carousel-item active">
+                    <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='500' viewBox='0 0 800 500'><rect width='800' height='500' fill='%23C41E3A' opacity='0.9'/><circle cx='400' cy='250' r='150' fill='white'/><path d='M300,200 Q400,150 500,200 T600,250 L550,300 Q400,350 250,300 Z' fill='%232A5C68'/><path d='M350,220 Q400,200 450,220 T500,240' fill='none' stroke='%231A1A1A' stroke-width='3'/></svg>" alt="陕西剪纸正面图">
+                </div>
+                <div class="carousel-item">
+                    <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='500' viewBox='0 0 800 500'><rect width='800' height='500' fill='%232A5C68' opacity='0.9'/><path d='M200,200 L600,200 L400,100 Z M200,300 L600,300 L400,400 Z' fill='%23F8F4E9'/><circle cx='400' cy='275' r='25' fill='%23C41E3A'/><rect x='380' y='250' width='40' height='50' fill='%231A1A1A'/></svg>" alt="陕西剪纸侧面图">
+                </div>
+                <div class="carousel-item">
+                    <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='500' viewBox='0 0 800 500'><rect width='800' height='500' fill='%231A1A1A' opacity='0.9'/><circle cx='400' cy='250' r='120' fill='%23C41E3A'/><path d='M340,200 L460,200 L400,300 Z' fill='white'/><circle cx='400' cy='220' r='15' fill='%232A5C68'/><circle cx='370' cy='260' r='10' fill='%232A5C68'/><circle cx='430' cy='260' r='10' fill='%232A5C68'/></svg>" alt="陕西剪纸细节图">
+                </div>
+            </div>
+        </div>
+
+        <!-- 轮播控制 -->
+        <div class="carousel-controls">
+            <button class="carousel-btn prev" onclick="changeSlide(-1)">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="carousel-btn next" onclick="changeSlide(1)">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+
+        <!-- 轮播指示器 -->
+        <div class="carousel-indicators">
+            <span class="indicator active" data-slide="0"></span>
+            <span class="indicator" data-slide="1"></span>
+            <span class="indicator" data-slide="2"></span>
+        </div>
+
+        <!-- 收藏按钮 -->
+        <button class="favorite-hero-btn" id="heroFavoriteBtn">
+            <i class="far fa-heart"></i>
+        </button>
+    </section>
+
+    <!-- 主要内容区域 -->
+    <main class="detail-main">
+        <div class="container">
+            <div class="detail-grid">
+                <!-- 基础信息区域 -->
+                <aside class="info-sidebar">
+                    <div class="basic-info">
+                        <h1 class="work-title">陕西剪纸</h1>
+
+                        <div class="info-item">
+                            <i class="fas fa-map-marker-alt info-icon"></i>
+                            <span class="info-label">所属地域：</span>
+                            <span class="info-value">陕西省西安市</span>
+                        </div>
+
+                        <div class="info-item">
+                            <i class="fas fa-user info-icon"></i>
+                            <span class="info-label">传承人：</span>
+                            <span class="info-value">李秀英</span>
+                        </div>
+
+                        <div class="info-item">
+                            <i class="fas fa-tags info-icon"></i>
+                            <span class="info-label">非遗类别：</span>
+                            <span class="info-value">传统手工技艺</span>
+                        </div>
+
+                        <div class="info-item">
+                            <i class="fas fa-star info-icon"></i>
+                            <span class="info-label">非遗价值：</span>
+                            <span class="info-value">国家级非物质文化遗产，展现了中国传统剪纸艺术的精湛技艺</span>
+                        </div>
+                    </div>
+
+                    <!-- 核心功能入口 -->
+                    <div class="action-buttons">
+                        <button class="action-btn workshop-btn" onclick="window.location.href='workshop.html'">
+                            <i class="fas fa-cut"></i>
+                            亲手制作
+                        </button>
+                        <button class="action-btn share-btn" id="shareBtn">
+                            <i class="fas fa-share-alt"></i>
+                            分享作品
+                        </button>
+                    </div>
+                </aside>
+
+                <!-- 详细信息区域 -->
+                <section class="detail-content">
+                    <!-- 标签切换 -->
+                    <div class="tab-nav">
+                        <button class="tab-btn active" data-tab="culture">文化渊源</button>
+                        <button class="tab-btn" data-tab="process">工艺流程</button>
+                        <button class="tab-btn" data-tab="works">传世作品</button>
+                        <button class="tab-btn" data-tab="status">传承人现状</button>
+                    </div>
+
+                    <!-- 文化渊源 -->
+                    <div class="tab-content active" id="culture-content">
+                        <div class="content-section">
+                            <p>陕西剪纸是中国最古老的民间艺术之一，起源于汉代，至今已有两千多年的历史。它以黄土高原深厚的文化底蕴为依托，承载着丰富的历史文化信息和民俗内涵。</p>
+                            <p>陕西剪纸题材广泛，内容丰富，主要包括花鸟虫鱼、飞禽走兽、神话传说、历史故事等，反映了人们祈福纳祥、驱邪避灾的美好愿望。</p>
+
+                            <div class="content-image">
+                                <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='300' viewBox='0 0 600 300'><rect width='600' height='300' fill='%23F8F4E9' opacity='0.8'/><circle cx='300' cy='150' r='80' fill='%23C41E3A'/><path d='M220,120 L380,120 L300,200 Z' fill='%232A5C68'/><text x='300' y='250' text-anchor='middle' fill='%231A1A1A' font-size='16' font-family='Arial'>古代剪纸场景</text></svg>" alt="古代剪纸场景">
+                                <p class="image-caption">古代剪纸制作场景复原图</p>
+                            </div>
+
+                            <p>在陕西农村，每逢春节、婚嫁等重要节日，家家户户都要贴剪纸，用以装饰环境，烘托节日气氛。这些剪纸作品不仅具有很高的艺术价值，更是研究中国传统文化的重要资料。</p>
+                        </div>
+                    </div>
+
+                    <!-- 工艺流程 -->
+                    <div class="tab-content" id="process-content">
+                        <div class="content-section">
+                            <h3>传统剪纸工艺流程</h3>
+
+                            <div class="process-steps">
+                                <div class="step-item">
+                                    <div class="step-number">1</div>
+                                    <div class="step-content">
+                                        <h4>纸张准备</h4>
+                                        <p>选用优质宣纸或彩纸，根据作品需要进行裁剪和叠放</p>
+                                    </div>
+                                </div>
+
+                                <div class="step-item">
+                                    <div class="step-number">2</div>
+                                    <div class="step-content">
+                                        <h4>图案设计</h4>
+                                        <p>在纸上绘制或构思剪纸图案，考虑构图和线条的连续性</p>
+                                    </div>
+                                </div>
+
+                                <div class="step-item">
+                                    <div class="step-number">3</div>
+                                    <div class="step-content">
+                                        <h4>精细裁剪</h4>
+                                        <p>使用专用剪刀，按照设计图案精心剪制每一个细节</p>
+                                    </div>
+                                </div>
+
+                                <div class="step-item">
+                                    <div class="step-number">4</div>
+                                    <div class="step-content">
+                                        <h4>作品整理</h4>
+                                        <p>小心展开作品，修整边缘，完成最终作品</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="process-diagram">
+                                <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='200' viewBox='0 0 600 200'><rect width='600' height='200' fill='%23F8F4E9' opacity='0.8'/><circle cx='100' cy='100' r='30' fill='%23C41E3A'/><circle cx='250' cy='100' r='30' fill='%232A5C68'/><circle cx='400' cy='100' r='30' fill='%23C41E3A'/><circle cx='550' cy='100' r='30' fill='%232A5C68'/><path d='M130,100 L220,100 M280,100 L370,100 M430,100 L520,100' stroke='%231A1A1A' stroke-width='2'/></svg>" alt="剪纸工艺流程示意图">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 传世作品 -->
+                    <div class="tab-content" id="works-content">
+                        <div class="content-section">
+                            <h3>经典传世作品</h3>
+
+                            <div class="classic-works">
+                                <div class="work-item">
+                                    <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'><rect width='200' height='200' fill='%23C41E3A' opacity='0.8'/><circle cx='100' cy='100' r='60' fill='white'/><path d='M70,70 Q100,50 130,70 T160,100 L145,130 Q100,150 55,130 Z' fill='%232A5C68'/></svg>" alt="经典福字剪纸">
+                                    <div class="work-info">
+                                        <h4>福字剪纸</h4>
+                                        <p>寓意：福气满满，吉祥如意</p>
+                                    </div>
+                                </div>
+
+                                <div class="work-item">
+                                    <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'><rect width='200' height='200' fill='%232A5C68' opacity='0.8'/><path d='M50,100 L150,100 L100,50 Z M50,100 L150,100 L100,150 Z' fill='%23F8F4E9'/><circle cx='100' cy='125' r='15' fill='%23C41E3A'/></svg>" alt="生肖剪纸">
+                                    <div class="work-info">
+                                        <h4>生肖剪纸</h4>
+                                        <p>寓意：年年有余，岁岁平安</p>
+                                    </div>
+                                </div>
+
+                                <div class="work-item">
+                                    <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'><rect width='200' height='200' fill='%23F8F4E9' opacity='0.8'/><circle cx='100' cy='100' r='50' fill='%23C41E3A'/><path d='M70,80 L130,80 L100,120 Z' fill='%232A5C68'/></svg>" alt="花鸟剪纸">
+                                    <div class="work-info">
+                                        <h4>花鸟剪纸</h4>
+                                        <p>寓意：花开富贵，鸟语花香</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 传承人现状 -->
+                    <div class="tab-content" id="status-content">
+                        <div class="content-section">
+                            <h3>传承人介绍</h3>
+
+                            <div class="inheritor-profile">
+                                <div class="profile-image">
+                                    <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'><rect width='200' height='200' fill='%23F8F4E9' opacity='0.8'/><circle cx='100' cy='100' r='60' fill='%23C41E3A'/><circle cx='80' cy='85' r='8' fill='white'/><circle cx='120' cy='85' r='8' fill='white'/><path d='M70,120 Q100,140 130,120' fill='none' stroke='white' stroke-width='3'/></svg>" alt="传承人李秀英">
+                                </div>
+                                <div class="profile-info">
+                                    <h4>李秀英</h4>
+                                    <p>国家级非物质文化遗产代表性传承人</p>
+                                    <p>从事剪纸技艺已有40余年，致力于传统剪纸艺术的传承与发展，多次获得国家级奖项。</p>
+                                    <p>近年来，她积极投身于青少年剪纸教育工作，在多所学校开设剪纸课程，培养了数百名剪纸爱好者。</p>
+                                </div>
+                            </div>
+
+                            <div class="challenges">
+                                <h4>面临挑战</h4>
+                                <ul>
+                                    <li>传统技艺学习周期长，年轻人兴趣不足</li>
+                                    <li>机械化生产的冲击，传统手工艺品市场萎缩</li>
+                                    <li>传承人群体老龄化严重，缺乏新鲜血液</li>
+                                    <li>现代生活方式改变，传统应用场景减少</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 工艺短视频区域 -->
+                    <div class="video-section">
+                        <h3>工艺制作视频</h3>
+                        <div class="video-container">
+                            <div class="video-placeholder">
+                                <i class="fas fa-play-circle video-play-icon"></i>
+                                <p>点击播放工艺制作视频</p>
+                            </div>
+                            <p class="video-title">陕西剪纸工艺制作全过程</p>
+                        </div>
+                    </div>
+
+                    <!-- 音频讲解 -->
+                    <div class="audio-section">
+                        <h3>音频讲解</h3>
+                        <div class="audio-player">
+                            <button class="audio-btn" id="audioBtn">
+                                <i class="fas fa-volume-up"></i>
+                                播放作品讲解
+                            </button>
+                            <div class="audio-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" id="progressFill"></div>
+                                </div>
+                                <span class="audio-time" id="audioTime">0:00 / 1:30</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- 分享弹窗 -->
+    <div class="share-modal" id="shareModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>分享作品</h3>
+                <button class="close-btn" onclick="closeShareModal()">&times;</button>
+            </div>
+            <div class="share-options">
+                <div class="share-option" onclick="shareToWechat()">
+                    <i class="fab fa-weixin"></i>
+                    <span>微信</span>
+                </div>
+                <div class="share-option" onclick="shareToQQ()">
+                    <i class="fab fa-qq"></i>
+                    <span>QQ</span>
+                </div>
+                <div class="share-option" onclick="shareToWeibo()">
+                    <i class="fab fa-weibo"></i>
+                    <span>微博</span>
+                </div>
+                <div class="share-option" onclick="copyLink()">
+                    <i class="fas fa-link"></i>
+                    <span>复制链接</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部区域 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-left">
+                    <p class="copyright">©2026 非遗新生 版权所有</p>
+                    <p class="contact">联系我们：info@feiyi-xinsheng.com</p>
+                </div>
+
+                <div class="footer-center">
+                    <div class="decoration-icons">
+                        <i class="fas fa-cut footer-icon"></i>
+                        <i class="fas fa-mask footer-icon"></i>
+                        <i class="fas fa-paint-brush footer-icon"></i>
+                    </div>
+                </div>
+
+                <div class="footer-right">
+                    <a href="#" class="footer-link">关于我们</a>
+                    <a href="#" class="footer-link">使用说明</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/detail.js"></script>
+</body>
+</html>
