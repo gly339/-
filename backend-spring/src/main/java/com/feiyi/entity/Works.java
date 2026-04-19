@@ -2,6 +2,7 @@ package com.feiyi.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import java.time.LocalDateTime;
 
 @Data
 @Entity
@@ -29,4 +30,12 @@ public class Works {
 
     @Column(name = "comment_count")
     private Integer commentCount = 0;
+
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
+
+    @PrePersist
+    protected void onCreate() {
+        createdAt = LocalDateTime.now();
+    }
 }

@@ -8,6 +8,10 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,6 +24,7 @@ import com.feiyi.repository.AdminUserRepository;
 import java.util.Collections;
 
 @Configuration
+@EnableWebSecurity
 public class SecurityConfig {
 
     @Autowired
@@ -57,15 +62,18 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain filterChain(org.springframework.security.config.http.SessionCreationPolicy sessionPolicy) throws Exception {
-        org.springframework.security.config.Customizer withHttpBasic = org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http
+            .csrf(AbstractHttpConfigurer::disable)
+            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+            .authorizeHttpRequests(auth -> auth
+                .requestMatchers("/api/auth/**", "/api/health", "/api/categories", "/api/exhibits/**",
+                        "/api/quiz/**", "/api/works/**", "/api/comments/**", "/api/upload/**").permitAll()
+                .requestMatchers("/api/admin/**").authenticated()
+                .anyRequest().permitAll()
+            )
+            .authenticationProvider(authenticationProvider());
 
-        return new org.springframework.security.web.SecurityFilterChain.Builder()
-                .authenticationProvider(authenticationProvider())
-                .authorizeHttpRequests(req -> req
-                        .requestMatchers("/api/auth/**", "/api/health").permitAll()
-                        .anyRequest().authenticated()
-                )
-                .build();
+        return http.build();
     }
 }

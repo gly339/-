@@ -19,6 +19,10 @@ public class WorksService {
         return worksRepository.save(work);
     }
 
+    public Works getWorkById(Integer id) {
+        return worksRepository.findById(id).orElse(null);
+    }
+
     public List<Works> getWorksBySession(String sessionId) {
         return worksRepository.findBySessionId(sessionId);
     }
