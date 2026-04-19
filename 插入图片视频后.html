@@ -2683,7 +2683,7 @@
         // API 调用封装
         async apiCall(endpoint, options = {}) {
           try {
-            const response = await fetch(`http://localhost:3000${endpoint}`, {
+            const response = await fetch(`http://localhost:8080${endpoint}`, {
               ...options,
               headers: {
                 'Content-Type': 'application/json',
@@ -2699,7 +2699,11 @@
 
         // 加载展品数据
         async loadExhibits(category = 'all') {
-          const result = await this.apiCall(`/api/exhibits?category=${category}`);
+          let url = '/api/v1/artifacts?page=1&page_size=20';
+          if (category !== 'all') {
+            url = `/api/v1/artifacts?category_id=${category}&page=1&page_size=20`;
+          }
+          const result = await this.apiCall(url);
           if (!result.error) {
             // 将 API 数据转换为前端格式
             this.exhibits = result.map(item => ({
@@ -2727,6 +2731,73 @@
             }));
           }
         },
+
+        // 获取热门展品
+        async loadHotExhibits() {
+          const result = await this.apiCall('/api/v1/artifacts/hot?limit=8');
+          if (!result.error) {
+            let data = result;
+            if (result.data) {
+              data = result.data.items || result.data;
+            }
+            return Array.isArray(data) ? data : [];
+          }
+          return [];
+        },
+
+        // 获取分类列表
+        async loadCategories() {
+          const result = await this.apiCall('/api/v1/categories');
+          if (!result.error && result.data) {
+            return Array.isArray(result.data.items || result.data) ? result.data.items || result.data : [];
+          }
+          return [];
+        },
+
+        // 获取展品详情
+        async getArtifactDetail(id) {
+          const result = await this.apiCall(`/api/v1/artifacts/${id}`);
+          if (!result.error && result.data) {
+            return result.data;
+          }
+          return null;
+        },
+
+        // 获取制作步骤
+        async getCraftSteps(artifactId) {
+          const result = await this.apiCall(`/api/v1/artifacts/${artifactId}/craft-steps`);
+          if (!result.error && result.data) {
+            return Array.isArray(result.data.items || result.data) ? result.data.items || result.data : [];
+          }
+          return [];
+        },
+
+        // 获取媒体资源
+        async getArtifactMedia(artifactId) {
+          const result = await this.apiCall(`/api/v1/artifacts/${artifactId}/media`);
+          if (!result.error && result.data) {
+            return Array.isArray(result.data.items || result.data) ? result.data.items || result.data : [];
+          }
+          return [];
+        },
+
+        // 上传文件
+        async uploadFile(file, type) {
+          const formData = new FormData();
+          formData.append('file', file);
+          formData.append('type', type);
+          try {
+            const response = await fetch(`http://localhost:8080/api/v1/admin/upload`, {
+              method: 'POST',
+              body: formData
+            });
+            return await response.json();
+          } catch (err) {
+            console.error('上传失败:', err);
+            return { error: '上传失败' };
+          }
+        },
+
         // 页面跳转（支持浏览器返回）
         changePage(page) {
           this.currentPage = page;
@@ -2789,6 +2860,35 @@
           }, 3500);
         },
 
+        // 加载答题题目
+        async loadQuizQuestions(limit = 5) {
+          const result = await this.apiCall(`/api/v1/quiz?limit=${limit}`);
+          if (!result.error && result.data) {
+            let data = Array.isArray(result.data.items || result.data) ? result.data.items || result.data : [];
+            if (data.length > 0) {
+              // 适配前端格式
+              this.questions = data.map(q => ({
+                question: q.question,
+                options: q.options,
+                correct: q.correct_answer_index,
+                explanation: q.explanation
+              }));
+            }
+          }
+        },
+
+        // 提交答题
+        async submitQuizAnswer(questionId, answerIndex) {
+          const result = await this.apiCall('/api/v1/quiz/submit', {
+            method: 'POST',
+            body: JSON.stringify({
+              question_id: questionId,
+              answer_index: answerIndex
+            })
+          });
+          return result;
+        },
+
         submitAnswer() {
           this.showResult = true;
           if (this.selectedOption === this.questions[this.currentQuestion - 1].correct) this.score += 20;
@@ -2808,7 +2908,7 @@
         },
         adminLogin() {
           // 调用后端登录 API
-          this.apiCall('/api/auth/login', {
+          this.apiCall('/api/v1/auth/login', {
             method: 'POST',
             body: JSON.stringify({
               username: this.adminUsername,
@@ -2816,7 +2916,7 @@
             })
           }).then(result => {
             if (!result.error) {
-              localStorage.setItem('adminToken', result.token);
+              localStorage.setItem('adminToken', result.data?.token || result.token);
               this.adminLoggedIn = true;
               alert('登录成功！');
               this.changePage('admin-list');

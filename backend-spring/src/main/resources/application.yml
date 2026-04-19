@@ -1,0 +1,39 @@
+spring:
+  application:
+    name: intangible-heritage
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/IntangibleHeritage?useSSL=false&serverTimezone=Asia/Shanghai&characterEncoding=utf-8
+    username: root
+    password: ${DB_PASSWORD:}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQLDialect
+
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 100MB
+      max-request-size: 100MB
+
+server:
+  port: 3000
+
+jwt:
+  secret: feiyi_secret_key_2026
+  expiration: 86400000 # 24 hours in milliseconds
+
+file:
+  upload-dir: uploads
+  static-path: /uploads/**
+
+security:
+  cors:
+    allowed-origins: http://localhost:5501,http://localhost:3000

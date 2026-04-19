@@ -19,7 +19,7 @@
       "craftsman": "传统工艺，无特定传承人",
       "image_url": "/images/1.jpg",
       "video_url": "/videos/ci.mp4",
-      "views": 0,
+      "views": 3,
       "created_at": "2026-04-17T13:08:21.876Z",
       "is_published": true
     },
@@ -54,6 +54,13 @@
       "is_published": true
     }
   ],
-  "favorites": [],
+  "favorites": [
+    {
+      "id": 1,
+      "exhibit_id": 1,
+      "user_id": "user_123",
+      "created_at": "2026-04-18T07:35:01.304Z"
+    }
+  ],
   "view_history": []
 }
