@@ -6,27 +6,20 @@ import java.time.LocalDateTime;
 
 @Data
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @Column(nullable = false, unique = true, length = 50)
     private String username;
 
-    @Column(nullable = false)
+    @Column(name = "password_hash", nullable = false)
     private String passwordHash;
 
-    @Column(length = 100)
-    private String email;
-
-    @Column(length = 20)
-    private String phone;
-
-    @Column(name = "is_active")
-    private Boolean active = true;
+    @Column(nullable = false, length = 20)
+    private String role = "user";
 
     private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
 }

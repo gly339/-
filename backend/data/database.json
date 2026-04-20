@@ -5,6 +5,12 @@
       "username": "admin",
       "password": "$2a$10$Y/lkdXyf9IaC50/ojk7tGuiJq8d2E9rdWhjIXUXFbxgT/a1dUZt.2",
       "created_at": "2026-04-17T13:00:00.000Z"
+    },
+    {
+      "id": 2,
+      "username": "1",
+      "password": "$2a$10$isPjYkFCqkyLm9h5az4GEetRseKgcMe1W9f1hMjcHWM.Cbev.j1ze",
+      "created_at": "2026-04-19T13:10:57.945Z"
     }
   ],
   "exhibits": [

@@ -1,0 +1,15 @@
+com\feiyi\repository\WorksRepository.class
+com\feiyi\entity\Works.class
+com\feiyi\repository\QuizQuestionRepository.class
+com\feiyi\entity\QuizAnswer.class
+com\feiyi\dto\CommentRequest.class
+com\feiyi\entity\QuizQuestion.class
+com\feiyi\repository\ProcessRepository.class
+com\feiyi\repository\UserRepository.class
+com\feiyi\repository\QuizAnswerRepository.class
+com\feiyi\entity\Category.class
+com\feiyi\entity\Exhibit.class
+com\feiyi\entity\User.class
+com\feiyi\entity\Process.class
+com\feiyi\dto\ApiResponse.class
+com\feiyi\config\GlobalExceptionHandler.class
